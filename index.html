@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rúbrica de Evaluación — Proyecto Intermodular | I.E.S. La Ería</title>
+<meta name="description" content="Rúbrica de evaluación del Proyecto Intermodular. C.F.G.M. Actividades Comerciales. Módulo 1713. RD 499/2024. I.E.S. La Ería, Oviedo.">
+<style>
+/* ─────────────────────────────────────────────────────────
+   RESET & BASE
+───────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:     #1a2744;
+  --navy2:    #2e4080;
+  --green:    #2a5f3b;
+  --gold:     #c9973a;
+  --gold-lt:  #f0d9a8;
+  --blue-lt:  #dce6f5;
+  --blue-xlt: #eef3fb;
+  --grn-lt:   #d6eddc;
+  --grn-xlt:  #eef7f1;
+  --slate:    #e4e9f2;
+  --border:   #c5cfe0;
+  --bg:       #f1f3f8;
+  --white:    #ffffff;
+  --text:     #1a202c;
+  --soft:     #5a6478;
+  --red:      #b91c1c;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--bg);
+  min-height: 100vh;
+}
+
+/* ─────────────────────────────────────────────────────────
+   TOP BAR
+───────────────────────────────────────────────────────── */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--navy);
+  height: 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.35);
+}
+.tb-brand {
+  display: flex; align-items: center; gap: 9px;
+  font-size: 14px; font-weight: 600; color: #fff; letter-spacing: .01em;
+}
+.tb-brand span { color: var(--gold-lt); }
+.tb-btns { display: flex; gap: 7px; }
+.tbtn {
+  display: flex; align-items: center; gap: 5px;
+  font: 600 12px/1 inherit;
+  padding: 6px 13px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,255,255,.2);
+  background: rgba(255,255,255,.08);
+  color: #fff; cursor: pointer;
+  transition: background .15s;
+}
+.tbtn:hover { background: rgba(255,255,255,.18); }
+.tbtn.warn { border-color: rgba(201,151,58,.45); color: var(--gold-lt); }
+.tbtn.warn:hover { background: rgba(201,151,58,.15); }
+
+/* ─────────────────────────────────────────────────────────
+   PAGE WRAP
+───────────────────────────────────────────────────────── */
+.wrap { max-width: 900px; margin: 0 auto; padding: 1.75rem 1.25rem 4rem; }
+
+/* ─────────────────────────────────────────────────────────
+   HEADER CARD
+───────────────────────────────────────────────────────── */
+.hcard {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 1px 5px rgba(26,39,68,.09);
+}
+
+/* title band */
+.hband {
+  background: linear-gradient(110deg, var(--navy) 0%, var(--navy2) 100%);
+  padding: 1.3rem 1.75rem;
+}
+.hband h1 {
+  font-size: 18px; font-weight: 700;
+  color: #fff; letter-spacing: .01em;
+}
+.hband h1 em { color: var(--gold-lt); font-style: normal; }
+.hband p { font-size: 11.5px; color: rgba(255,255,255,.5); margin-top: 3px; }
+
+/* centre row: IES info + course info */
+.hcols {
+  display: grid; grid-template-columns: 40% 60%;
+  border-top: 1px solid var(--border);
+}
+.hcol {
+  padding: .9rem 1.4rem;
+}
+.hcol:first-child {
+  background: #f0f4fc;
+  border-right: 1px solid var(--border);
+}
+.hcol-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--soft); margin-bottom: 3px; }
+.hcol p { font-size: 13px; line-height: 1.55; }
+.hcol p strong { color: var(--navy); }
+
+/* fields row */
+.hfields {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: .85rem 1.4rem;
+  border-top: 1px solid var(--border);
+  background: #fafbfd;
+}
+.field { display: flex; flex-direction: column; gap: 3px; }
+.field label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--soft);
+}
+.field input, .field select {
+  font: 13px/1.4 inherit;
+  padding: 6px 9px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--white); color: var(--text);
+  transition: border-color .15s, box-shadow .15s;
+}
+.field input:focus, .field select:focus {
+  outline: none;
+  border-color: var(--navy2);
+  box-shadow: 0 0 0 3px rgba(46,64,128,.1);
+}
+
+/* ─────────────────────────────────────────────────────────
+   SCORE STRIP
+───────────────────────────────────────────────────────── */
+.strip {
+  display: grid; grid-template-columns: 1fr 1fr 1.1fr;
+  gap: 10px; margin-bottom: 1.1rem;
+}
+.sc {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: .95rem 1.1rem;
+  box-shadow: 0 1px 4px rgba(26,39,68,.07);
+}
+.sc .lbl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--soft); }
+.sc .val { font-size: 2.2rem; font-weight: 700; line-height: 1.05; margin-top: 2px; }
+.sc .sub { font-size: 11px; color: var(--soft); margin-top: 1px; }
+.sc.sa { border-top: 3px solid var(--navy2); }
+.sc.sa .val { color: var(--navy2); }
+.sc.sb { border-top: 3px solid var(--green); }
+.sc.sb .val { color: var(--green); }
+.sc.st { background: var(--navy); border-color: var(--navy); }
+.sc.st .lbl { color: rgba(255,255,255,.5); }
+.sc.st .val { color: var(--gold-lt); font-size: 2.6rem; }
+.sc.st .sub { color: rgba(255,255,255,.4); }
+
+.pbar-wrap { height: 3px; background: rgba(0,0,0,.07); border-radius: 3px; margin-top: 8px; }
+.pbar { height: 3px; border-radius: 3px; width: 0; background: var(--navy2); transition: width .35s ease; }
+.pbar.g { background: #48a868; }
+
+.badge {
+  display: inline-block; margin-top: 6px;
+  font-size: 10.5px; font-weight: 700;
+  padding: 2px 9px; border-radius: 20px;
+  background: rgba(255,255,255,.1); color: rgba(255,255,255,.35);
+  transition: background .3s, color .3s;
+}
+
+/* ─────────────────────────────────────────────────────────
+   INSTRUCTIONS
+───────────────────────────────────────────────────────── */
+.instr {
+  background: #fffcf0; border: 1px solid #dfc96a;
+  border-radius: 7px; padding: .55rem 1rem;
+  font-size: 12px; color: #6b510a;
+  margin-bottom: 1.1rem;
+  display: flex; align-items: flex-start; gap: 7px;
+}
+.instr svg { flex-shrink: 0; margin-top: 1px; }
+
+/* ─────────────────────────────────────────────────────────
+   BLOQUE CARD
+───────────────────────────────────────────────────────── */
+.bloque {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 1.1rem;
+  box-shadow: 0 1px 4px rgba(26,39,68,.07);
+}
+
+.bhead {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: .8rem 1.35rem;
+}
+.bhead.a { background: linear-gradient(90deg, var(--navy) 0%, var(--navy2) 100%); }
+.bhead.b { background: linear-gradient(90deg, var(--green) 0%, #367a4a 100%); }
+.bhead h2 { font-size: 13px; font-weight: 700; color: #fff; letter-spacing: .015em; }
+.bpts { font-size: 11.5px; font-weight: 600; color: #fff; background: rgba(255,255,255,.15); padding: 2px 11px; border-radius: 20px; }
+
+/* ─────────────────────────────────────────────────────────
+   TABLE
+───────────────────────────────────────────────────────── */
+.tbl { width: 100%; border-collapse: collapse; }
+
+.tbl thead th {
+  font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .06em;
+  color: var(--soft);
+  background: var(--slate);
+  padding: 7px 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+.tbl thead th.tc { text-align: center; }
+
+.tbl tbody tr { border-bottom: 1px solid #e8ecf4; }
+.tbl tbody tr:last-child { border-bottom: none; }
+.tbl tbody tr:hover:not(.str):not(.odd) { background: #f6f8fd; }
+
+.tbl tbody td {
+  padding: 9px 13px; font-size: 13px;
+  color: var(--text); vertical-align: middle;
+}
+.tbl tbody td.tc  { text-align: center; }
+.tbl tbody td.max {
+  text-align: center;
+  font-size: 12.5px; font-weight: 700;
+  color: var(--soft);
+  white-space: nowrap;
+}
+
+/* alternating row */
+.odd td { background: #f4f7fc; }
+.odd:hover td { background: #eef2fb !important; }
+
+/* subtotal row */
+.str td {
+  background: var(--slate) !important;
+  border-top: 2px solid var(--border) !important;
+  font-weight: 700 !important;
+}
+.str .stl {
+  text-align: right;
+  font-size: 12.5px !important;
+  color: var(--soft) !important;
+  letter-spacing: .01em;
+}
+.str .stv {
+  text-align: center;
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  color: var(--navy2) !important;
+}
+.str.strb .stv { color: var(--green) !important; }
+
+/* score input */
+.si {
+  width: 70px;
+  font: 700 14px/1 inherit;
+  text-align: center;
+  padding: 5px 3px;
+  border: 1.5px solid var(--border);
+  border-radius: 7px;
+  background: var(--bg); color: var(--text);
+  transition: border-color .15s, box-shadow .15s, background .15s;
+  -moz-appearance: textfield;
+}
+.si::-webkit-inner-spin-button,
+.si::-webkit-outer-spin-button { -webkit-appearance: none; }
+.si:focus {
+  outline: none;
+  border-color: var(--navy2);
+  box-shadow: 0 0 0 3px rgba(46,64,128,.12);
+  background: var(--white);
+}
+.si.bad { border-color: var(--red); background: #fef2f2; }
+.si.ok  { border-color: var(--navy2); background: var(--white); }
+
+/* checkbox */
+.ck { width: 15px; height: 15px; cursor: pointer; accent-color: var(--navy2); }
+
+/* obs */
+.obs { padding: .65rem 1rem .9rem; border-top: 1px solid #e8ecf4; }
+.obs label {
+  font-size: 10px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--soft); display: block; margin-bottom: 4px;
+}
+.obs textarea {
+  width: 100%; font: 13px/1.5 inherit;
+  padding: 7px 10px;
+  border: 1px solid var(--border); border-radius: 7px;
+  background: var(--bg); color: var(--text);
+  resize: vertical; min-height: 56px;
+  transition: border-color .15s;
+}
+.obs textarea:focus {
+  outline: none; border-color: var(--navy2);
+  box-shadow: 0 0 0 3px rgba(46,64,128,.09);
+  background: var(--white);
+}
+
+/* ─────────────────────────────────────────────────────────
+   GLOBAL OBS
+───────────────────────────────────────────────────────── */
+.gobs {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(26,39,68,.07);
+}
+.gobs-hdr {
+  padding: .65rem 1.35rem;
+  background: var(--slate);
+  border-bottom: 1px solid var(--border);
+}
+.gobs-hdr span {
+  font-size: 10.5px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+  color: var(--soft);
+}
+.gobs-body { padding: 1rem 1.35rem 1.25rem; display: flex; flex-direction: column; gap: 10px; }
+.gobs-body textarea {
+  font: 13px/1.5 inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--border); border-radius: 7px;
+  background: var(--bg); color: var(--text);
+  resize: vertical; min-height: 72px;
+  transition: border-color .15s;
+}
+.gobs-body textarea:focus {
+  outline: none; border-color: var(--navy2);
+  box-shadow: 0 0 0 3px rgba(46,64,128,.09);
+  background: var(--white);
+}
+.firma-row {
+  display: flex; justify-content: space-between;
+  align-items: flex-end; flex-wrap: wrap; gap: 1rem;
+  padding-top: 4px;
+}
+.fecha-txt { font-size: 13px; color: var(--soft); }
+.firma-box { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.firma-line { width: 200px; height: 1px; background: var(--border); }
+.firma-box span { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--soft); }
+
+/* ─────────────────────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────────────────────── */
+.foot {
+  text-align: center; margin-top: 2rem;
+  font-size: 11px; color: #9aa5ba;
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────────────────
+   PRINT
+───────────────────────────────────────────────────────── */
+@media print {
+  body { background: #fff; font-size: 11px; }
+  .topbar, .instr { display: none !important; }
+  .wrap { padding: 0; max-width: 100%; }
+  .hband { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .bhead.a, .bhead.b { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sc.st { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .odd td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .str td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .hcard, .bloque, .gobs { box-shadow: none; border-color: #bbb; }
+  .strip { grid-template-columns: 1fr 1fr 1fr; }
+  .sc .val { font-size: 1.5rem; }
+  .sc.st .val { font-size: 1.9rem; }
+  .obs textarea, .gobs-body textarea { min-height: 32px; }
+  @page { size: A4; margin: 1cm; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="tb-brand">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+      <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+    </svg>
+    Rúbrica &nbsp;—&nbsp; <span>Proyecto Intermodular</span>
+  </div>
+  <div class="tb-btns">
+    <button class="tbtn warn" onclick="resetAll()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/>
+      </svg>
+      Restablecer
+    </button>
+    <button class="tbtn" onclick="window.print()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+        <polyline points="6 9 6 2 18 2 18 9"/>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+        <rect x="6" y="14" width="12" height="8"/>
+      </svg>
+      Imprimir / PDF
+    </button>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ── HEADER CARD ── -->
+<div class="hcard">
+  <div class="hband">
+    <h1>Rúbrica de Evaluación &mdash; <em>Proyecto Intermodular</em></h1>
+    <p>C.F.G.M. Actividades Comerciales &nbsp;·&nbsp; Módulo 1713 &nbsp;·&nbsp; Real Decreto 499/2024</p>
+  </div>
+  <div class="hcols">
+    <div class="hcol">
+      <div class="hcol-label">Centro educativo</div>
+      <p><strong>I.E.S. "La Ería"</strong></p>
+      <p>C/ Regenta, 4 – 33006 Oviedo/Uviéu</p>
+      <p>Tfno.: 985 27 36 54</p>
+    </div>
+    <div class="hcol">
+      <div class="hcol-label">Datos del ciclo</div>
+      <p>Ciclo Formativo de Grado Medio</p>
+      <p><strong>C.F.G.M. Actividades Comerciales — Curso 2025-2026</strong></p>
+      <p><strong>Módulo 1713:</strong> <em>Proyecto Intermodular</em> &nbsp;·&nbsp; RD 499/2024</p>
+    </div>
+  </div>
+  <div class="hfields">
+    <div class="field">
+      <label>Apellidos y nombre del alumno/a</label>
+      <input type="text" id="alu" placeholder="Apellidos, Nombre">
+    </div>
+    <div class="field">
+      <label>Docente evaluador/a</label>
+      <input type="text" id="doc" placeholder="Nombre del docente">
+    </div>
+    <div class="field">
+      <label>Convocatoria</label>
+      <select id="conv">
+        <option value="">— Seleccionar —</option>
+        <option>Ordinaria</option>
+        <option>Extraordinaria</option>
+      </select>
+    </div>
+    <div class="field">
+      <label>Fecha</label>
+      <input type="date" id="fecha">
+    </div>
+  </div>
+</div>
+
+<!-- ── SCORE STRIP ── -->
+<div class="strip">
+  <div class="sc sa">
+    <div class="lbl">Bloque A — Formato y Contenidos</div>
+    <div class="val" id="va">0,00</div>
+    <div class="sub">de 6,00 pts &nbsp;(60 %)</div>
+    <div class="pbar-wrap"><div class="pbar" id="ba"></div></div>
+  </div>
+  <div class="sc sb">
+    <div class="lbl">Bloque B — Exposición y Defensa</div>
+    <div class="val" id="vb">0,00</div>
+    <div class="sub">de 4,00 pts &nbsp;(40 %)</div>
+    <div class="pbar-wrap"><div class="pbar g" id="bb"></div></div>
+  </div>
+  <div class="sc st">
+    <div class="lbl">Calificación final</div>
+    <div class="val" id="vt">0,00</div>
+    <div class="sub">sobre 10 puntos</div>
+    <div class="badge" id="badge">Sin calificar</div>
+  </div>
+</div>
+
+<!-- ── INSTRUCTIONS ── -->
+<div class="instr">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+  </svg>
+  Introduce en «Punt. obtenida» un valor entre 0 y el máximo indicado. La nota final (Bloque A + Bloque B) se calcula automáticamente. Marca ✓ en los criterios de comprobación binaria.
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE A
+════════════════════════════════════════ -->
+<div class="bloque">
+  <div class="bhead a">
+    <h2>BLOQUE A &mdash; FORMATO Y CONTENIDOS</h2>
+    <span class="bpts">Máx. 6,00 puntos &nbsp;(60 %)</span>
+  </div>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:60%">Criterio de evaluación</th>
+        <th class="tc" style="width:13%">Punt. máx.</th>
+        <th class="tc" style="width:14%">Punt. obtenida</th>
+        <th class="tc" style="width:9%">SI / NO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Portada, índice y paginación correctos</td>
+        <td class="max">0,25</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.25" step="0.01" placeholder="—" data-max="0.25" data-bl="a" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr class="odd">
+        <td>Tipografía, interlineado y justificación del texto</td>
+        <td class="max">0,25</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.25" step="0.01" placeholder="—" data-max="0.25" data-bl="a" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr>
+        <td>Bibliografía y referencias utilizadas</td>
+        <td class="max">0,50</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.50" step="0.01" placeholder="—" data-max="0.50" data-bl="a" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr class="odd">
+        <td>Extensión adecuada del trabajo (excluidos anexos, resumen e índice)</td>
+        <td class="max">0,25</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.25" step="0.01" placeholder="—" data-max="0.25" data-bl="a" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr>
+        <td>Resumen e introducción: objetivos y planteamiento del trabajo</td>
+        <td class="max">0,50</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.50" step="0.01" placeholder="—" data-max="0.50" data-bl="a" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr class="odd">
+        <td>Desarrollo del contenido: coherencia, profundidad y aplicación de conocimientos de los módulos del ciclo</td>
+        <td class="max">3,00</td>
+        <td class="tc"><input class="si" type="number" min="0" max="3.00" step="0.01" placeholder="—" data-max="3.00" data-bl="a" oninput="calc()"></td>
+        <td class="tc">—</td>
+      </tr>
+      <tr>
+        <td>Conclusiones del trabajo</td>
+        <td class="max">0,75</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.75" step="0.01" placeholder="—" data-max="0.75" data-bl="a" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr class="odd">
+        <td>Anexos y material complementario</td>
+        <td class="max">0,25</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.25" step="0.01" placeholder="—" data-max="0.25" data-bl="a" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr>
+        <td>Innovación y originalidad en la propuesta del proyecto</td>
+        <td class="max">0,25</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.25" step="0.01" placeholder="—" data-max="0.25" data-bl="a" oninput="calc()"></td>
+        <td class="tc">—</td>
+      </tr>
+      <tr class="str">
+        <td colspan="2" class="stl">TOTAL BLOQUE A &nbsp;——————————————————&rarr;</td>
+        <td class="stv" id="suba">0,00</td>
+        <td class="tc" style="font-size:11px;color:#888;font-weight:400">/ 6,00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="obs">
+    <label>Observaciones — Bloque A</label>
+    <textarea placeholder="Anotaciones del evaluador/a sobre el contenido y formato del proyecto escrito…"></textarea>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE B
+════════════════════════════════════════ -->
+<div class="bloque">
+  <div class="bhead b">
+    <h2>BLOQUE B &mdash; EXPOSICIÓN Y DEFENSA</h2>
+    <span class="bpts">Máx. 4,00 puntos &nbsp;(40 %)</span>
+  </div>
+
+  <table class="tbl">
+    <thead>
+      <tr>
+        <th style="width:60%">Criterio de evaluación</th>
+        <th class="tc" style="width:13%">Punt. máx.</th>
+        <th class="tc" style="width:14%">Punt. obtenida</th>
+        <th class="tc" style="width:9%">SI / NO</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Uso de medios digitales / T.I.C. en la presentación</td>
+        <td class="max">0,50</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.50" step="0.01" placeholder="—" data-max="0.50" data-bl="b" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr class="odd">
+        <td>Respeto al tiempo de exposición establecido (máx. 20 min)</td>
+        <td class="max">0,50</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.50" step="0.01" placeholder="—" data-max="0.50" data-bl="b" oninput="calc()"></td>
+        <td class="tc"><input type="checkbox" class="ck"></td>
+      </tr>
+      <tr>
+        <td>Claridad, orden y dominio en la exposición</td>
+        <td class="max">1,00</td>
+        <td class="tc"><input class="si" type="number" min="0" max="1.00" step="0.01" placeholder="—" data-max="1.00" data-bl="b" oninput="calc()"></td>
+        <td class="tc">—</td>
+      </tr>
+      <tr class="odd">
+        <td>Comunicación fluida y vocabulario técnico adecuado</td>
+        <td class="max">0,75</td>
+        <td class="tc"><input class="si" type="number" min="0" max="0.75" step="0.01" placeholder="—" data-max="0.75" data-bl="b" oninput="calc()"></td>
+        <td class="tc">—</td>
+      </tr>
+      <tr>
+        <td>Respuestas sólidas y fundamentadas a las preguntas del tribunal en la defensa</td>
+        <td class="max">1,25</td>
+        <td class="tc"><input class="si" type="number" min="0" max="1.25" step="0.01" placeholder="—" data-max="1.25" data-bl="b" oninput="calc()"></td>
+        <td class="tc">—</td>
+      </tr>
+      <tr class="str strb">
+        <td colspan="2" class="stl">TOTAL BLOQUE B &nbsp;——————————————————&rarr;</td>
+        <td class="stv" id="subb">0,00</td>
+        <td class="tc" style="font-size:11px;color:#888;font-weight:400">/ 4,00</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="obs">
+    <label>Observaciones — Bloque B</label>
+    <textarea placeholder="Anotaciones del evaluador/a sobre la exposición y defensa oral…"></textarea>
+  </div>
+</div>
+
+<!-- ── NOTA FINAL + OBS GLOBAL ── -->
+<div class="gobs">
+  <div class="gobs-hdr">
+    <span>Valoración global del tribunal &amp; Propuesta de calificación motivada</span>
+  </div>
+  <div class="gobs-body">
+    <textarea placeholder="Observaciones finales, incidencias durante la defensa, propuesta de calificación motivada…"></textarea>
+    <div class="firma-row">
+      <span class="fecha-txt">En Oviedo, a &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; de &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; de &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <div class="firma-box">
+        <div class="firma-line"></div>
+        <span>Firma del evaluador/a</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="foot">
+  Rúbrica de Evaluación — Proyecto Intermodular &nbsp;·&nbsp; Módulo 1713 &nbsp;·&nbsp; RD 499/2024<br>
+  I.E.S. "La Ería", Oviedo &nbsp;·&nbsp; C.F.G.M. Actividades Comerciales 2025-2026
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+/* ── utilidades ── */
+function fmt(n) {
+  return n.toFixed(2).replace('.', ',');
+}
+
+const GRADES = [
+  { min: 9,    text: 'Sobresaliente', bg: '#14532d' },
+  { min: 7,    text: 'Notable',       bg: '#1e3a8a' },
+  { min: 6,    text: 'Bien',          bg: '#365314' },
+  { min: 5,    text: 'Suficiente',    bg: '#78350f' },
+  { min: 0.01, text: 'Insuficiente',  bg: '#7f1d1d' },
+];
+
+/* ── cálculo principal ── */
+function calc() {
+  let sA = 0, sB = 0;
+
+  document.querySelectorAll('.si').forEach(function(inp) {
+    const max = parseFloat(inp.dataset.max);
+    const raw = inp.value;
+    const num = raw === '' ? 0 : parseFloat(raw);
+    const bad = raw !== '' && (isNaN(num) || num < 0 || num > max + 0.0001);
+
+    inp.classList.toggle('bad', bad);
+    inp.classList.toggle('ok',  raw !== '' && !bad);
+
+    if (!bad) {
+      const v = Math.min(Math.max(isNaN(num) ? 0 : num, 0), max);
+      if (inp.dataset.bl === 'a') sA += v;
+      else                         sB += v;
+    }
+  });
+
+  const tot = sA + sB;
+
+  /* update displays */
+  document.getElementById('suba').textContent = fmt(sA);
+  document.getElementById('subb').textContent = fmt(sB);
+  document.getElementById('va').textContent   = fmt(sA);
+  document.getElementById('vb').textContent   = fmt(sB);
+  document.getElementById('vt').textContent   = fmt(tot);
+
+  /* progress bars */
+  document.getElementById('ba').style.width = Math.min((sA / 6) * 100, 100) + '%';
+  document.getElementById('bb').style.width = Math.min((sB / 4) * 100, 100) + '%';
+
+  /* badge */
+  const el = document.getElementById('badge');
+  const g  = GRADES.find(function(x) { return tot >= x.min; });
+  if (g) {
+    el.textContent = g.text;
+    el.style.background = g.bg + 'bb';
+    el.style.color = '#fff';
+  } else {
+    el.textContent = 'Sin calificar';
+    el.style.background = 'rgba(255,255,255,.1)';
+    el.style.color = 'rgba(255,255,255,.35)';
+  }
+}
+
+/* ── restablecer ── */
+function resetAll() {
+  document.querySelectorAll('.si').forEach(function(i) {
+    i.value = '';
+    i.classList.remove('bad', 'ok');
+  });
+  document.querySelectorAll('.ck').forEach(function(c) { c.checked = false; });
+  document.querySelectorAll('textarea').forEach(function(t) { t.value = ''; });
+  ['alu', 'doc', 'conv', 'fecha'].forEach(function(id) {
+    var e = document.getElementById(id);
+    if (e) e.value = '';
+  });
+  calc();
+}
+
+/* ── init ── */
+calc();
+</script>
+</body>
+</html>
